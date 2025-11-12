@@ -54,20 +54,41 @@ def load_entries() -> List[Dict[str, Any]]:
 def render_minimal(entries: List[Dict[str, Any]]) -> str:
     if not entries:
         return "# Training PRs\n\n_No entries yet._\n"
+
+    # Sort all entries by date (newest first)
     entries_by_date = sorted(entries, key=lambda x: x["date"], reverse=True)
+
+    # Overall most recent PR (unchanged)
     recent = entries_by_date[0]
-    recent_line = f"**Most recent PR:** {recent['date'].isoformat()} — {recent['exercise']} — {recent['set_str']}"
-    entries_all = sorted(
-        entries, key=lambda x: (x["exercise"].lower(), -x["date"].toordinal())
+    recent_line = (
+        f"**Most recent PR:** {recent['date'].isoformat()} — "
+        f"{recent['exercise']} — {recent['set_str']}"
     )
-    lines = []
+
+    # For the table: only keep the most recent entry per exercise
+    latest_per_exercise: Dict[str, Dict[str, Any]] = {}
+    for e in entries_by_date:
+        key = e["exercise"].lower()
+        if key not in latest_per_exercise:
+            # First time we see this exercise, since entries_by_date is newest-first
+            latest_per_exercise[key] = e
+
+    # Sort the unique entries by exercise name for display
+    entries_all = sorted(
+        latest_per_exercise.values(),
+        key=lambda x: x["exercise"].lower(),
+    )
+
+    lines: List[str] = []
     lines.append("# Training PRs\n")
     lines.append(recent_line + "\n")
     lines.append("## All PRs\n")
     lines.append("| Exercise | Set | Date |")
     lines.append("|---|---|---|")
+
     for r in entries_all:
         lines.append(f"| {r['exercise']} | {r['set_str']} | {r['date'].isoformat()} |")
+
     lines.append("\n*README is auto-generated from files in `prs/`.*\n")
     return "\n".join(lines)
 
