@@ -2,7 +2,7 @@ exercise: Squat
 unit_weight: kg
 entries:
   - date: 2025-11-10
-    reps: 4
+    reps: 6
     weight: 85
   - date: 2025-05-13
     reps: 4
