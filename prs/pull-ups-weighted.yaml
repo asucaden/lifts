@@ -1,6 +1,9 @@
 exercise: Pull-ups (Weighted)
 unit_weight: lb
 entries:
+  - date: 2025-12-06
+    reps: 7
+    weight: 35
   - date: 2025-11-09
     reps: 7
     weight: 30

@@ -1,6 +1,9 @@
 exercise: Biceps Curl
 unit_weight: lb
 entries:
+  - date: 2025-12-06
+    reps: 9
+    weight: 80
   - date: 2025-11-06
     reps: 14
     weight: 70

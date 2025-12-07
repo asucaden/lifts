@@ -1,6 +1,9 @@
 exercise: Squat
 unit_weight: kg
 entries:
+  - date: 2025-11-21
+    reps: 7
+    weight: 85
   - date: 2025-11-10
     reps: 6
     weight: 85
